@@ -60,7 +60,7 @@ def prices():
         return np.array(x, dtype=np.datetime64)
 
     # add a line renderer with legend and line thickness
-    plot.line(datetime(datess), closeprices, legend="Closing Price", color = "#B2DF8A", line_width=2)
+    plot.line(datetime(datess), closeprices, legend="Closing Price", color = "#3A8183", line_width=2)
 
 
     script, div = components(plot)
