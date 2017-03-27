@@ -28,8 +28,6 @@ from datetime import datetime
 from bokeh.plotting import figure, output_file, show
 from bokeh.embed import components 
 
-
-
 app = Flask(__name__)
 
 @app.route('/')
@@ -50,26 +48,20 @@ def prices():
     #return redirect('/index')
     df = pd.DataFrame(datalist)
     datess = df[df.columns[0]].tolist()
-    lowprices = df[df.columns[1]].tolist()
     closeprices = df[df.columns[2]].tolist()
-    openprices = df[df.columns[3]].tolist()
-    highprices = df[df.columns[4]].tolist()
 
-    
     # output to static HTML file
     output_file("lines.html")
 
     # create a new plot with a title and axis labels
-    plot = figure(title="Data from Quandle WIKI set", x_axis_label='Date', x_axis_type='datetime', y_axis_label='Price')
+    plot = figure(title="Data of Closing Prices from Quandle WIKI set", x_axis_label='Date', x_axis_type='datetime', y_axis_label='Price')
 
     def datetime(x):
         return np.array(x, dtype=np.datetime64)
 
     # add a line renderer with legend and line thickness
-    plot.line(datetime(datess), lowprices, legend="Low", line_width=2)
-    plot.line(datetime(datess), closeprices, legend="Close",line_width=2)
-    plot.line(datetime(datess), openprices, legend="Open" ,line_width=2)
-    plot.line(datetime(datess), highprices, legend="High", line_width=2)
+    plot.line(datetime(datess), closeprices, legend="Closing Price",line_width=2)
+
 
     script, div = components(plot)
     return render_template('graph.html', script=script, div=div)
