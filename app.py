@@ -25,7 +25,7 @@ from flask import Flask, render_template, request, redirect
 import requests
 import pandas as pd
 from datetime import datetime
-
+from bokeh.plotting import figure, output_file, show
 
 app = Flask(__name__)
 
@@ -69,7 +69,7 @@ def prices():
     p1.line(dates, openprices, legend="Open Prices", line_width=2)
 
 # show the results
-    show(p)
+    show(p1)
     
     return render_template('prices.html', date = dates, openList=openprices, closeList=closeprices, adjopenList= adjopenprices, adjcloseList = adjcloseprices ) #insert attributes here if needed
 
