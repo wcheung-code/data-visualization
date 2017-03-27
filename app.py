@@ -43,8 +43,13 @@ def prices():
     datalist = json_object['datatable']['data']
     #return render_template('prices.html')
     #return redirect('/index')
+    df = pd.DataFrame(datalist)
+    openprices = df[df.columns[0]].tolist()
+    closeprices = df[df.columns[1]].tolist()
+    adjopenprices = df[df.columns[2]].tolist()
+    adjcloseprices = df[df.columns[3]].tolist()
     
-    return render_template('prices.html', data = datalist) #insert attributes here if needed
+    return render_template('prices.html', openList=openprices, closeList=closeprices, adjopenList= adjopenprices, adjcloseList = adjcloseprices ) #insert attributes here if needed
 
 
 
