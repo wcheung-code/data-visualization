@@ -20,12 +20,15 @@
 #if __name__ == '__main__':
 #    app.run(host = '0.0.0.0', port = 33507)
 
-
+import numpy as np
 from flask import Flask, render_template, request, redirect
 import requests
 import pandas as pd
 from datetime import datetime
 from bokeh.plotting import figure, output_file, show
+from bokeh.embed import components 
+
+
 
 app = Flask(__name__)
 
@@ -37,8 +40,8 @@ def main():
 def index():
     return render_template('index.html')
 
-@app.route('/prices', methods=['POST'])
-def prices():
+@app.route('/graph', methods=['POST'])
+def graph():
     tsymbol1 = request.form['tsymbol']
     r = requests.get('https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?ticker='+tsymbol1+'&qopts.columns=date,open,close,adj_open,adj_close&api_key=Y2Zioiyb9r16QRthEeyU')
     json_object = r.json()
@@ -51,29 +54,24 @@ def prices():
     closeprices = df[df.columns[2]].tolist()
     adjopenprices = df[df.columns[3]].tolist()
     adjcloseprices = df[df.columns[4]].tolist()
+
     
-    def dateToInt(string):
-        datetime_object = datetime.strptime(string, '%Y-%m-%d')
-        answer = datetime.today() - datetime_object
-        return -answer.days
-    
-    dates = map(dateToInt, datess)
-    
-    p1 = figure(title="Data from Quandle WIKI set", x_axis_label='Dates', y_axis_label='Prices')
+    # output to static HTML file
+    output_file("lines.html")
 
-#plot = figure(title='Data from Quandle WIKI set',
-      #        x_axis_label='date',
-       #       x_axis_type='datetime')
+    # create a new plot with a title and axis labels
+    plot = figure(title="Data from Quandle WIKI set", x_axis_label='Date', x_axis_type='datetime', y_axis_label='Price')
 
-# add a line renderer with legend and line thickness
-    p1.line(dates, openprices, legend="Open Prices", line_width=2)
+    def datetime(x):
+        return np.array(x, dtype=np.datetime64)
 
-# show the results
-    plot = show(p1)
-    
-    return render_template('prices.html', graph = plot, date = dates, date2 = datess, openList=openprices, closeList=closeprices, adjopenList= adjopenprices, adjcloseList = adjcloseprices ) #insert attributes here if needed
+    # add a line renderer with legend and line thickness
+    plot.line(datetime(datess), y, legend="Temp.", line_width=2)
 
 
+    script, div = components(plot)
+    return render_template('graph.html', script=script, div=div)
+    # show the results
 
 
 if __name__ == '__main__':
