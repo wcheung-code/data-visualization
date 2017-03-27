@@ -24,6 +24,7 @@
 from flask import Flask, render_template, request, redirect
 import requests
 import pandas as pd
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -50,7 +51,14 @@ def prices():
     adjopenprices = df[df.columns[3]].tolist()
     adjcloseprices = df[df.columns[4]].tolist()
     
-    return render_template('prices.html', date = datess, openList=openprices, closeList=closeprices, adjopenList= adjopenprices, adjcloseList = adjcloseprices ) #insert attributes here if needed
+    def dateToInt(string):
+        datetime_object = datetime.strptime(string, '%Y-%m-%d')
+        answer = datetime.today() - datetime_object
+        return -answer.days
+    
+    dates = map(dateToInt, datess)
+    
+    return render_template('prices.html', date = dates, openList=openprices, closeList=closeprices, adjopenList= adjopenprices, adjcloseList = adjcloseprices ) #insert attributes here if needed
 
 
 
