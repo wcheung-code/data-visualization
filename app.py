@@ -43,17 +43,17 @@ def index():
 @app.route('/prices', methods=['POST'])
 def prices():
     tsymbol1 = request.form['tsymbol']
-    r = requests.get('https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?ticker='+tsymbol1+'&qopts.columns=date,open,close,adj_open,adj_close&api_key=Y2Zioiyb9r16QRthEeyU')
+    r = requests.get('https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?ticker='+tsymbol1+'&qopts.columns=date,low,close,open,high&api_key=Y2Zioiyb9r16QRthEeyU')
     json_object = r.json()
     datalist = json_object['datatable']['data']
     #return render_template('prices.html')
     #return redirect('/index')
     df = pd.DataFrame(datalist)
     datess = df[df.columns[0]].tolist()
-    openprices = df[df.columns[1]].tolist()
+    lowprices = df[df.columns[1]].tolist()
     closeprices = df[df.columns[2]].tolist()
-    adjopenprices = df[df.columns[3]].tolist()
-    adjcloseprices = df[df.columns[4]].tolist()
+    openprices = df[df.columns[3]].tolist()
+    highprices = df[df.columns[4]].tolist()
 
     
     # output to static HTML file
@@ -66,10 +66,10 @@ def prices():
         return np.array(x, dtype=np.datetime64)
 
     # add a line renderer with legend and line thickness
-    plot.line(datetime(datess), openprices, legend="asfsa", line_width=2)
-    plot.line(datetime(datess), closeprices, legend="saff", line_width=2)
-    plot.line(datetime(datess), adjopenprices, legend="asf", line_width=2)
-    plot.line(datetime(datess), adjcloseprices, legend="saf", line_width=2)
+    plot.line(datetime(datess), lowprices, legend="Low", color='#A6CEE3',line_width=2)
+    plot.line(datetime(datess), closeprices, legend="Close",line_width=2)
+    plot.line(datetime(datess), openprices, legend="Open" color = '#33A02C', ,line_width=2)
+    plot.line(datetime(datess), highprices, legend="High", color='#B2DF8A', line_width=2)
 
     script, div = components(plot)
     return render_template('graph.html', script=script, div=div)
