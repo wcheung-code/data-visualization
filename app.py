@@ -42,7 +42,7 @@ def prices():
     datalist = json_object['datatable']['data']
     #return render_template('prices.html')
     #return redirect('/index')
-    return render_template('prices.html', data=datalist)
+    return render_template('prices.html', data=list(datalist))
 
 
 if __name__ == '__main__':
