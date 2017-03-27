@@ -55,6 +55,7 @@ def prices():
     adjopenprices = df[df.columns[3]].tolist()
     adjcloseprices = df[df.columns[4]].tolist()
 
+    options = [openprices,closeprices,adjopenprices, adjcloseprices]
     
     # output to static HTML file
     output_file("lines.html")
@@ -66,7 +67,7 @@ def prices():
         return np.array(x, dtype=np.datetime64)
 
     # add a line renderer with legend and line thickness
-    plot.line(datetime(datess), openprices, legend="Temp.", line_width=2)
+    plot.line(datetime(datess), options[0], legend="Temp.", line_width=2)
 
 
     script, div = components(plot)
