@@ -40,8 +40,8 @@ def main():
 def index():
     return render_template('index.html')
 
-@app.route('/graph', methods=['POST'])
-def graph():
+@app.route('/prices', methods=['POST'])
+def prices():
     tsymbol1 = request.form['tsymbol']
     r = requests.get('https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?ticker='+tsymbol1+'&qopts.columns=date,open,close,adj_open,adj_close&api_key=Y2Zioiyb9r16QRthEeyU')
     json_object = r.json()
