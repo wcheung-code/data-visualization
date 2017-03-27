@@ -43,12 +43,8 @@ def prices():
     datalist = json_object['datatable']['data']
     #return render_template('prices.html')
     #return redirect('/index')
-    df = pd.DataFrame(datalist,index=[1,2,3,4])
     
-    
-    return df
-    
-#    return render_template('prices.html') #insert attributes here if needed
+    return render_template('prices.html', data = datalist) #insert attributes here if needed
 
 
 
