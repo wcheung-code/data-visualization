@@ -66,10 +66,10 @@ def prices():
         return np.array(x, dtype=np.datetime64)
 
     # add a line renderer with legend and line thickness
-    plot.line(datetime(datess), lowprices, legend="Low", color='#A6CEE3',line_width=2)
+    plot.line(datetime(datess), lowprices, legend="Low", line_width=2)
     plot.line(datetime(datess), closeprices, legend="Close",line_width=2)
-    plot.line(datetime(datess), openprices, legend="Open" color = '#33A02C',line_width=2)
-    plot.line(datetime(datess), highprices, legend="High", color='#B2DF8A', line_width=2)
+    plot.line(datetime(datess), openprices, legend="Open" ,line_width=2)
+    plot.line(datetime(datess), highprices, legend="High", line_width=2)
 
     script, div = components(plot)
     return render_template('graph.html', script=script, div=div)
