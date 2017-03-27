@@ -39,7 +39,7 @@ def prices():
     tsymbol1 = request.form['tsymbol']
     r = requests.get('https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?ticker='+tsymbol1+'&qopts.columns=open,close,adj_open,adj_close&api_key=Y2Zioiyb9r16QRthEeyU')
     json_object = r.json()
-    datalist = str(json_object['datatable']['data'])
+    datalist = json_object['datatable']['data']
     #return render_template('prices.html')
     #return redirect('/index')
     return render_template('prices.html', data=datalist)
