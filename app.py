@@ -9,8 +9,8 @@ def prices():
     r = requests.get('https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?ticker='+tsymbol+'&qopts.columns=open,close,adj_open,adj_close&api_key=Y2Zioiyb9r16QRthEeyU')
     json_object = r.json()
     datalist = list(json_object[datatable][data])
-    #return str(datalist)
-    return render_template('prices.html')
+    return str(datalist)
+    #return render_template('prices.html')
     #return redirect('/index')
 
 @app.route('/index')
