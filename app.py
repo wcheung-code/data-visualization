@@ -23,6 +23,7 @@
 
 from flask import Flask, render_template, request, redirect
 import requests
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -42,7 +43,14 @@ def prices():
     datalist = json_object['datatable']['data']
     #return render_template('prices.html')
     #return redirect('/index')
-    return render_template('prices.html', data=datalist[1])
+    df = pd.DataFrame(datalist,index=[1,2,3,4])
+    
+    
+    return df
+    
+#    return render_template('prices.html') #insert attributes here if needed
+
+
 
 
 if __name__ == '__main__':
