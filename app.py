@@ -55,7 +55,6 @@ def prices():
     adjopenprices = df[df.columns[3]].tolist()
     adjcloseprices = df[df.columns[4]].tolist()
 
-    options = [openprices,closeprices,adjopenprices, adjcloseprices]
     
     # output to static HTML file
     output_file("lines.html")
@@ -69,19 +68,19 @@ def prices():
     # add a line renderer with legend and line thickness
     opened = request.form.get('Opened')
     if opened:
-        plot.line(datetime(datess), options[0], legend="Temp.", line_width=2)
+        plot.line(datetime(datess), openprices, legend="asfsa", line_width=2)
 
     closed = request.form.get('Closed')
     if closed:
-        plot.line(datetime(datess), options[1], legend="Temp.", line_width=2)
+        plot.line(datetime(datess), closeprices, legend="saff", line_width=2)
 
     adjOpened = request.form.get('Adj. Opened')
     if adjOpened:
-        plot.line(datetime(datess), options[1], legend="Temp.", line_width=2)
+        plot.line(datetime(datess), adjopenprices, legend="asf", line_width=2)
     
     adjClosed = request.form.get('Adj. Closed')
     if adjClosed:
-        plot.line(datetime(datess), options[2], legend="Temp.", line_width=2)
+        plot.line(datetime(datess), adjcloseprices, legend="saf", line_width=2)
 
     script, div = components(plot)
     return render_template('graph.html', script=script, div=div)
