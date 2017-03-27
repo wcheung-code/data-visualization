@@ -67,8 +67,21 @@ def prices():
         return np.array(x, dtype=np.datetime64)
 
     # add a line renderer with legend and line thickness
-    plot.line(datetime(datess), options[0], legend="Temp.", line_width=2)
+    opened = request.form.get('Opened')
+    if opened:
+        plot.line(datetime(datess), options[0], legend="Temp.", line_width=2)
 
+    closed = request.form.get('Closed')
+    if closed:
+        plot.line(datetime(datess), options[1], legend="Temp.", line_width=2)
+
+    adjOpened = request.form.get('Adj. Opened')
+    if adjOpened:
+        plot.line(datetime(datess), options[1], legend="Temp.", line_width=2)
+    
+    adjClosed = request.form.get('Adj. Closed')
+    if adjClosed:
+        plot.line(datetime(datess), options[2], legend="Temp.", line_width=2)
 
     script, div = components(plot)
     return render_template('graph.html', script=script, div=div)
