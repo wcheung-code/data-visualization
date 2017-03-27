@@ -31,7 +31,7 @@ def main():
 
 @app.route('/prices', methods=['POST'])
 def prices():
-  return render_template('prices.html')
+    return render_template('prices.html')
 
 if __name__ == '__main__':
     app.run(port=33507)
