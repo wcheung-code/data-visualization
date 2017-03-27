@@ -54,7 +54,8 @@ def prices():
     output_file("lines.html")
 
     # create a new plot with a title and axis labels
-    plot = figure(title="Data of Closing Prices from Quandle WIKI set", x_axis_label='Date', x_axis_type='datetime', y_axis_label='Price')
+    plot = figure(title="Data of Closing Prices from Quandle WIKI set", x_axis_label='Date', x_axis_type='datetime', y_axis_label='Price', toolbar_location="below",
+           toolbar_sticky=False)
 
     def datetime(x):
         return np.array(x, dtype=np.datetime64)
