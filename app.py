@@ -5,8 +5,8 @@
 
 #@app.route('/prices', methods=['POST'])
 #def prices():
-#    tsymbol = request.form['tsymbol']
-#    r = requests.get('https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?ticker='+tsymbol+'&qopts.columns=open,close,adj_open,adj_close&api_key=Y2Zioiyb9r16QRthEeyU')
+#    tsymbol1 = request.form['tsymbol']
+#    r = requests.get('https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?ticker='+tsymbol1+'&qopts.columns=open,close,adj_open,adj_close&api_key=Y2Zioiyb9r16QRthEeyU')
 #    json_object = r.json()
 #    datalist = list(json_object[datatable][data])
 #    return str(datalist)
@@ -35,7 +35,14 @@ def index():
 
 @app.route('/prices', methods=['POST'])
 def prices():
-    return render_template('prices.html')
+    tsymbol1 = request.form['tsymbol']
+    r = requests.get('https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?ticker='+tsymbol1+'&qopts.columns=open,close,adj_open,adj_close&api_key=Y2Zioiyb9r16QRthEeyU')
+    json_object = r.json()
+    datalist = list(json_object[datatable][data])
+    return str(datalist)
+    #return render_template('prices.html')
+    #return redirect('/index')
+#    return render_template('prices.html')
 
 
 if __name__ == '__main__':
