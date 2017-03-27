@@ -69,9 +69,9 @@ def prices():
     p1.line(dates, openprices, legend="Open Prices", line_width=2)
 
 # show the results
-    show(p1)
+    plot = show(p1)
     
-    return render_template('prices.html', date = dates, openList=openprices, closeList=closeprices, adjopenList= adjopenprices, adjcloseList = adjcloseprices ) #insert attributes here if needed
+    return render_template('prices.html', graph = plot, date = dates, date2 = datess, openList=openprices, closeList=closeprices, adjopenList= adjopenprices, adjcloseList = adjcloseprices ) #insert attributes here if needed
 
 
 
