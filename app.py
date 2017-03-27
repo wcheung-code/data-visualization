@@ -29,9 +29,14 @@ app = Flask(__name__)
 def main():
     return redirect('/index')
 
+@app.route('/index')
+def index():
+    return render_template('index.html')
+
 @app.route('/prices', methods=['POST'])
 def prices():
     return render_template('prices.html')
+
 
 if __name__ == '__main__':
     app.run(port=33507)
