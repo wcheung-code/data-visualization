@@ -38,18 +38,19 @@ def index():
 @app.route('/prices', methods=['POST'])
 def prices():
     tsymbol1 = request.form['tsymbol']
-    r = requests.get('https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?ticker='+tsymbol1+'&qopts.columns=open,close,adj_open,adj_close&api_key=Y2Zioiyb9r16QRthEeyU')
+    r = requests.get('https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?ticker='+tsymbol1+'&qopts.columns=date,open,close,adj_open,adj_close&api_key=Y2Zioiyb9r16QRthEeyU')
     json_object = r.json()
     datalist = json_object['datatable']['data']
     #return render_template('prices.html')
     #return redirect('/index')
     df = pd.DataFrame(datalist)
-    openprices = df[df.columns[0]].tolist()
-    closeprices = df[df.columns[1]].tolist()
-    adjopenprices = df[df.columns[2]].tolist()
-    adjcloseprices = df[df.columns[3]].tolist()
+    datess = df[df.columns[0]].tolist()
+    openprices = df[df.columns[1]].tolist()
+    closeprices = df[df.columns[2]].tolist()
+    adjopenprices = df[df.columns[3]].tolist()
+    adjcloseprices = df[df.columns[4]].tolist()
     
-    return render_template('prices.html', openList=openprices, closeList=closeprices, adjopenList= adjopenprices, adjcloseList = adjcloseprices ) #insert attributes here if needed
+    return render_template('prices.html', date = datess, openList=openprices, closeList=closeprices, adjopenList= adjopenprices, adjcloseList = adjcloseprices ) #insert attributes here if needed
 
 
 
