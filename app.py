@@ -25,7 +25,7 @@ from flask import Flask, render_template, request, redirect
 import requests
 import pandas as pd
 from datetime import datetime
-from bokeh.embed import components 
+
 
 app = Flask(__name__)
 
@@ -60,7 +60,7 @@ def prices():
     dates = map(dateToInt, datess)
     
     p1 = figure(title="Data from Quandle WIKI set", x_axis_label='Dates', y_axis_label='Prices')
-    
+
 #plot = figure(title='Data from Quandle WIKI set',
       #        x_axis_label='date',
        #       x_axis_type='datetime')
@@ -69,9 +69,9 @@ def prices():
     p1.line(dates, openprices, legend="Open Prices", line_width=2)
 
 # show the results
-
-    script, div = components(p1)
-    return render_template('prices.html', script=script, div=div, date = dates, openList=openprices, closeList=closeprices, adjopenList= adjopenprices, adjcloseList = adjcloseprices ) #insert attributes here if needed
+    show(p)
+    
+    return render_template('prices.html', date = dates, openList=openprices, closeList=closeprices, adjopenList= adjopenprices, adjcloseList = adjcloseprices ) #insert attributes here if needed
 
 
 
